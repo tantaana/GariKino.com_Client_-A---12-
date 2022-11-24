@@ -1,9 +1,12 @@
 import React from 'react';
+import HomeCarousel from '../HomeCarousel/HomeCarousel';
+import HomeHero from '../HomeHero/HomeHero';
 
 const Home = () => {
     return (
         <div>
-            <h2>This is home</h2>
+            <HomeCarousel></HomeCarousel>
+            <HomeHero></HomeHero>
         </div>
     );
 };

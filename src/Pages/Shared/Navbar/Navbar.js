@@ -12,16 +12,16 @@ const Navbar = () => {
                         </label>
                         <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-yellow-600 rounded-box w-52">
                             <li><Link to='/' className='text-white font-bold text-lg'>Home</Link></li>
-                            <li><Link className='text-white font-bold text-lg'>Item 3</Link></li>
+                            <li><Link to='/login' className='text-white font-bold text-lg'>Login</Link></li>
                             <li><Link to='/blogs' className='text-white text-lg font-bold'>Blogs</Link></li>
                         </ul>
                     </div>
-                    <Link className="btn btn-ghost border-0 normal-case text-3xl font-bold italic text-white">🛵 Gari <span className='text-emerald-300'>Kino</span><span className='text-white text-2xl'>.com</span></Link>
+                    <Link to='/' className="btn btn-ghost border-0 normal-case text-3xl font-bold italic text-white">🛵 Gari <span className='text-emerald-300'>Kino</span><span className='text-white text-2xl'>.com</span></Link>
                 </div>
                 <div className="navbar-center hidden lg:flex text-white">
                     <ul className="menu menu-horizontal p-0">
                         <li><Link to='/' className='text-white text-xl font-bold'>Home</Link></li>
-                        <li><Link className='text-white text-xl font-bold'>Item 3</Link></li>
+                        <li><Link to='/login' className='text-white text-xl font-bold'>Login</Link></li>
                         <li><Link to='/blogs' className='text-white text-xl font-bold'>Blogs</Link></li>
                     </ul>
                 </div>
