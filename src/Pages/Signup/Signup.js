@@ -3,21 +3,26 @@ import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../contexts/AuthProvider';
 
-const Login = () => {
+const Signup = () => {
 
     const { user } = useContext(AuthContext)
     const { register, formState: { errors }, handleSubmit } = useForm();
     const [data, setData] = useState('');
 
 
-    const handleLogin = data => {
-        console.log(data)
+    const handleSignUp = data => {
+        const email = data.email;
+        const password = data.password;
+        const op1 = data.op2 && 'on';
+        const op2 = data.op1 && 'off'
+
+        console.log(email, password, op1, op2)
     }
     return (
         <div className='flex justify-center items-center mt-10 h-[600px]'>
             <div className='w-96 p-7'>
-                <h2 className='text-4xl text-center font-bold mb-10'>Login</h2>
-                <form onSubmit={handleSubmit(handleLogin)}>
+                <h2 className='text-4xl text-center font-bold mb-10'>Sign Up</h2>
+                <form onSubmit={handleSubmit(handleSignUp)}>
                     <div className="form-control w-full max-w-xs">
                         <label className="label">
                             <span className="label-text font-bold">Your Email 📧</span>
@@ -37,6 +42,20 @@ const Login = () => {
                             })} placeholder="Type Your Password" className="input input-bordered input-primary w-full max-w-xs" />
                         {errors.password && <p className='text-red-500 font-bold mt-4'>{errors.password?.message}</p>}
                     </div>
+
+                    <div className="form-control w-full max-w-xs mt-6">
+                        <label className="label">
+                            <span className="label-text font-bold">Create account as:</span>
+                        </label>
+
+                        <select className="select select-primary w-full max-w-xs">
+                            <option {...register("op1")}>Normal User</option>
+                            <option {...register("op2")}>Seller</option>
+                            <option>Breaking Bad</option>
+                            <option>Walking Dead</option>
+                        </select>
+                    </div>
+
                     <div>
                         {/* {logError && <p className='text-center text-red-500 font-bold'>Wrong Password</p>} */}
                     </div>
@@ -54,4 +73,4 @@ const Login = () => {
     );
 };
 
-export default Login;
+export default Signup;

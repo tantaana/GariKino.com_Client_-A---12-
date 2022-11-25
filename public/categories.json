@@ -1,0 +1,22 @@
+[
+    {
+        "categories": "Honda",
+        "img": "https://st3.depositphotos.com/1817276/19080/i/600/depositphotos_190803698-stock-photo-bologna-italy-circa-december-2017.jpg",
+        "description": "Best used Honda cars that our customers want to sell on our platform. Have a look !",
+        "products": [
+            {
+                "productName": "Honda CR-V"
+            }
+        ]
+    },
+    {
+        "categories": "Toyota",
+        "img": "https://api.freelogodesign.org/assets/blog/thumb/b112eb672d7d4f61b7f688f788511320_1176x840.jpg",
+        "description": "Since our journey, Toyota is the most wanted brand on our platform !"
+    },
+    {
+        "categories": "BMW",
+        "img": "https://cloudfront-us-east-2.images.arcpublishing.com/reuters/TCYROD4AOJPRBHEJ26H2246JO4.jpg",
+        "description": "If you are enough luxurious, hunt a BMW !"
+    }
+]
