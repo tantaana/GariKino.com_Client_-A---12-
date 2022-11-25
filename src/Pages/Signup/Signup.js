@@ -53,7 +53,7 @@ const Signup = () => {
             })
     }
     return (
-        <div className='flex justify-center items-center mt-10 h-[600px]'>
+        <div className='flex justify-center items-center mt-10 h-[700px]'>
             <div className='w-96 p-7'>
                 <h2 className='text-4xl text-center font-bold mb-10'>Sign Up</h2>
                 <form onSubmit={handleSubmit(handleSignUp)}>
@@ -85,21 +85,16 @@ const Signup = () => {
                         {errors.password && <p className='text-red-500 font-bold mt-4 text-center'>{errors.password?.message}</p>}
                     </div>
 
+
                     <div className="form-control w-full max-w-xs mt-6">
                         <label className="label">
                             <span className="label-text font-bold">Create account as:</span>
                         </label>
 
-                        <select className="select select-primary w-full max-w-xs">
-                            <option {...register("op1")}>Normal User</option>
-                            <option {...register("op2")}>Seller</option>
-                            <option>Breaking Bad</option>
-                            <option>Walking Dead</option>
+                        <select {...register("userAs")} className="select select-primary w-full max-w-xs">
+                            <option defaultValue>Normal User</option>
+                            <option>Seller</option>
                         </select>
-                    </div>
-
-                    <div>
-                        {/* {logError && <p className='text-center text-red-500 font-bold'>Wrong Password</p>} */}
                     </div>
 
                     <input className='btn btn-primary w-full mt-4 font-bold' type="submit" value="Sign Up" />

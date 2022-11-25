@@ -21,7 +21,15 @@ const Navbar = () => {
                         </label>
                         <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-yellow-600 rounded-box w-52">
                             <li><Link to='/' className='text-white font-bold text-lg'>Home</Link></li>
-                            <li><Link to='/login' className='text-white font-bold text-lg'>Login</Link></li>
+                            {
+                                user?.uid ?
+
+                                    <>
+                                        <li><Link to='/dashboard' className='text-white text-lg font-bold'>Dashboard</Link></li>
+                                        <li><Link onClick={handleLogOut} className='text-white text-lg font-bold'>Log Out</Link></li>
+                                    </> :
+                                    <li><Link to='/login' className='text-white text-lg font-bold'>Login</Link></li>
+                            }
                             <li><Link to='/blogs' className='text-white text-lg font-bold'>Blogs</Link></li>
                         </ul>
                     </div>
@@ -33,7 +41,10 @@ const Navbar = () => {
                         {
                             user?.uid ?
 
-                                <li><Link onClick={handleLogOut} className='text-white text-xl font-bold'>Log Out</Link></li> :
+                                <>
+                                    <li><Link to='/dashboard' className='text-white text-xl font-bold'>Dashboard</Link></li>
+                                    <li><Link onClick={handleLogOut} className='text-white text-xl font-bold'>Log Out</Link></li>
+                                </> :
                                 <li><Link to='/login' className='text-white text-xl font-bold'>Login</Link></li>
                         }
                         <li><Link to='/blogs' className='text-white text-xl font-bold'>Blogs</Link></li>

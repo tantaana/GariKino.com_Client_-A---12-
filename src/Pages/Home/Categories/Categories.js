@@ -1,13 +1,21 @@
+import { useQuery } from '@tanstack/react-query';
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 const Categories = () => {
-    const [categories, setCategories] = useState([]);
-    useEffect(() => {
-        fetch('http://localhost:5000/categories')
+    // const [categories, setCategories] = useState([]);
+    // useEffect(() => {
+    //     fetch('http://localhost:5000/categories')
+    //         .then(res => res.json())
+    //         .then(data => setCategories(data))
+    // }, [])
+
+
+    const { data: categories = [] } = useQuery({
+        queryKey: 'categories',
+        queryFn: () => fetch('http://localhost:5000/categories')
             .then(res => res.json())
-            .then(data => setCategories(data))
-    }, [])
+    })
 
     return (
         <div className='my-28'>
@@ -18,7 +26,7 @@ const Categories = () => {
                 <div className='grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4'>
                     {
                         categories.map(category =>
-                            <Link to={`/category/${category._id}`}>
+                            <Link to={`/category/${category._id}`} key={category._id}>
                                 <div className="card w-96 shadow-xl image-full h-[300px] hover:border">
                                     <figure><img src={category.img} alt="Shoes" /></figure>
                                     <div className="card-body">
