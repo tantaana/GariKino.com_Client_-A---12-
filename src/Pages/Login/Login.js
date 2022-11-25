@@ -1,3 +1,4 @@
+import { GoogleAuthProvider } from 'firebase/auth';
 import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import toast, { Toaster } from 'react-hot-toast';
@@ -6,10 +7,27 @@ import { AuthContext } from '../../contexts/AuthProvider';
 
 const Login = () => {
 
-    const { signIn } = useContext(AuthContext)
+    const { signIn, providerLogin } = useContext(AuthContext)
     const { register, formState: { errors }, handleSubmit } = useForm();
     const [data, setData] = useState('');
 
+
+    const googleProvider = new GoogleAuthProvider();
+
+    const handleGoogle = () => {
+        providerLogin(googleProvider)
+            .then(result => {
+                const user = result.user;
+                console.log(user)
+                toast.success('Successfully logged in ✔️')
+            })
+            .catch(err => {
+                console.log(err.message)
+                if (err.message === 'Firebase: Error (auth/popup-closed-by-user).') {
+                    toast.error('Could not Login. Try Again')
+                }
+            })
+    }
 
     const handleLogin = data => {
         const name = data.name;
@@ -67,7 +85,7 @@ const Login = () => {
                 <p className='mt-4 font-bold text-center'>New to <i>GariKino.com</i> ? Please <Link className='text-primary font-bold' to='/signup'>Sign Up</Link></p>
 
                 <div className="divider font-bold text-xl">OR</div>
-                <button className='btn btn-primary btn-outline w-full font-bold'>CONTINUE WITH GOOGLE</button>
+                <button onClick={handleGoogle} className='btn btn-primary btn-outline w-full font-bold'>CONTINUE WITH GOOGLE</button>
             </div>
         </div>
     );
