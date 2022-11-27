@@ -7,6 +7,7 @@ import { AuthContext } from '../../../contexts/AuthProvider';
 const AddProduct = () => {
 
     const { user } = useContext(AuthContext);
+    console.log(user)
 
     const { register, formState: { errors }, handleSubmit } = useForm();
     const [data, setData] = useState('');
@@ -42,11 +43,13 @@ const AddProduct = () => {
                     const addProduct = {
                         category: data.category,
                         name: data.name,
-                        email: data.email,
+                        userName: user?.displayName,
+                        email: user?.email,
                         photo: imgData.data.url,
-                        price: data.price,
-                        conditionType: data.conditionType,
+                        originalPrice: data.original,
+                        resalePrice: data.resale,
                         mobile: data.mobile,
+                        condition: data.conditionType,
                         productLocation: data.productLocation,
                         description: data.description,
                         purchaseYear: data.purchaseYear
@@ -62,7 +65,7 @@ const AddProduct = () => {
                             'content-type': 'application/json',
                             authorization: `bearer ${localStorage.getItem('accessToken')}`
                         },
-                        body: JSON.stringify()
+                        body: JSON.stringify(addProduct)
                     })
                         .then(res => res.json())
                         .then(data => {
@@ -94,8 +97,10 @@ const AddProduct = () => {
                         <option defaultValue>Honda</option>
                         <option>Toyota</option>
                         <option>BMW</option>
-                        {/* {
-                            categories.map((category, i) => <option key={category._id} defaultValue>{category.categories}</option>)
+                        {/* <option disabled selected>Select your category</option>
+                        {
+                            categories.map(category => <>
+                                <option key={category._id}>{category.categories}</option></>)
                         } */}
                     </select>
                 </div>
@@ -118,10 +123,18 @@ const AddProduct = () => {
 
                 <div className="form-control w-full max-w-xs">
                     <label className="label">
-                        <span className="label-text font-bold">Price 💲</span>
+                        <span className="label-text font-bold">Original Price 💲</span>
                     </label>
-                    <input type="number" {...register("price", { required: 'Price must be included' })} placeholder="How much for this product?" className="input input-bordered input-primary w-full max-w-xs" />
-                    {errors.price && <p className='text-red-500 font-bold mt-4 text-center'>{errors.price?.message}</p>}
+                    <input type="number" {...register("original", { required: 'Original price must be included' })} placeholder="How much did it cost?" className="input input-bordered input-primary w-full max-w-xs" />
+                    {errors.original && <p className='text-red-500 font-bold mt-4 text-center'>{errors.original?.message}</p>}
+                </div>
+
+                <div className="form-control w-full max-w-xs">
+                    <label className="label">
+                        <span className="label-text font-bold">Resale Price 💲</span>
+                    </label>
+                    <input type="number" {...register("resale", { required: 'Resale price must be included' })} placeholder="How much are you asking for it?" className="input input-bordered input-primary w-full max-w-xs" />
+                    {errors.resale && <p className='text-red-500 font-bold mt-4 text-center'>{errors.resale?.message}</p>}
                 </div>
 
                 <div className="form-control w-full max-w-xs">
@@ -170,9 +183,9 @@ const AddProduct = () => {
 
                 <div className="form-control w-full max-w-xs">
                     <label className="label">
-                        <span className="label-text font-bold">Year of Purchase 🗓️</span>
+                        <span className="label-text font-bold">How many year(s) are you using this? 🗓️</span>
                     </label>
-                    <input type="number" {...register("purchaseYear", { required: 'Year of purchase cannot be empty' })} placeholder="Write your purchase date" className="input input-bordered input-primary w-full max-w-xs" />
+                    <input type="number" {...register("purchaseYear", { required: 'Year of purchase cannot be empty' })} placeholder="Write your usage" className="input input-bordered input-primary w-full max-w-xs" />
                     {errors.purchaseYear && <p className='text-red-500 font-bold mt-4 text-center'>{errors.purchaseYear?.message}</p>}
                 </div>
 

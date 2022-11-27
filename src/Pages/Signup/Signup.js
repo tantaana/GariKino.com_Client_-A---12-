@@ -7,7 +7,7 @@ import { AuthContext } from '../../contexts/AuthProvider';
 
 const Signup = () => {
 
-    const { createUser, providerLogin } = useContext(AuthContext)
+    const { createUser, providerLogin, updateUser } = useContext(AuthContext)
     const { register, formState: { errors }, handleSubmit } = useForm();
     const [data, setData] = useState('');
 
@@ -33,16 +33,24 @@ const Signup = () => {
         const name = data.name;
         const email = data.email;
         const password = data.password;
-        const op1 = data.op2 && 'on';
-        const op2 = data.op1 && 'off'
-
-        console.log(data)
+        const userType = data.userType;
 
 
         createUser(email, password)
             .then(result => {
                 const user = result.user;
                 console.log(user)
+
+                const userInfo = {
+                    displayName: name,
+                    tenantId: userType
+                }
+
+                console.log(userInfo)
+
+                updateUser(userInfo)
+                    .then(() => { })
+                    .catch(err => console.log(err.message))
                 toast.success('User has been created successfully ✔️')
             })
             .catch(err => {
@@ -91,7 +99,7 @@ const Signup = () => {
                             <span className="label-text font-bold">Create account as:</span>
                         </label>
 
-                        <select {...register("userAs")} className="select select-primary w-full max-w-xs">
+                        <select {...register("userType")} className="select select-primary w-full max-w-xs">
                             <option defaultValue>Normal User</option>
                             <option>Seller</option>
                         </select>

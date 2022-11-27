@@ -12,7 +12,6 @@ const Navbar = () => {
     }
     return (
         <div>
-            <Toaster />
             <div className="navbar bg-yellow-600">
                 <div className="navbar-start">
                     <div className="dropdown">
