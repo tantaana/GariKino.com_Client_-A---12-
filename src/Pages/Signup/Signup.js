@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../contexts/AuthProvider';
+import useToken from '../../hooks/useToken';
 
 const Signup = () => {
 
@@ -11,10 +12,16 @@ const Signup = () => {
     const { register, formState: { errors }, handleSubmit } = useForm();
     const [data, setData] = useState('');
 
-    const navigate = useNavigate();
-    const location = useLocation();
+    const [createdUserEmail, setCreatedUserEmail] = useState('');
+    const [token] = useToken(createdUserEmail)
 
+    const location = useLocation();
+    const navigate = useNavigate();
     const from = location.state?.from?.pathname || '/';
+
+    if (token) {
+        navigate(from, { replace: true })
+    }
 
     const googleProvider = new GoogleAuthProvider();
 
@@ -49,22 +56,11 @@ const Signup = () => {
                 .then(res => res.json())
                 .then(data => {
                     console.log(data)
-                    getUserToken(email)
-
+                    setCreatedUserEmail(email)
                 })
         }
 
 
-        const getUserToken = email => {
-            fetch(`http://localhost:5000/jwt?email=${email}`)
-                .then(res => res.json())
-                .then(data => {
-                    if (data.accessToken) {
-                        localStorage.setItem('accessToken', data.accessToken)
-                        navigate(from, { replace: true })
-                    }
-                })
-        }
     }
 
 
@@ -112,21 +108,12 @@ const Signup = () => {
                 .then(res => res.json())
                 .then(data => {
                     console.log(data)
-                    getUserToken(email)
+                    setCreatedUserEmail(email)
 
                 })
         }
 
-        const getUserToken = email => {
-            fetch(`http://localhost:5000/jwt?email=${email}`)
-                .then(res => res.json())
-                .then(data => {
-                    if (data.accessToken) {
-                        localStorage.setItem('accessToken', data.accessToken)
-                        navigate(from, { replace: true })
-                    }
-                })
-        }
+
     }
     return (
         <div className='flex justify-center items-center mt-10 h-[700px]'>

@@ -4,13 +4,15 @@ import { useForm } from 'react-hook-form';
 import toast, { Toaster } from 'react-hot-toast';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../contexts/AuthProvider';
+import useToken from '../../hooks/useToken';
 
 const Login = () => {
 
     const { signIn, providerLogin } = useContext(AuthContext)
     const { register, formState: { errors }, handleSubmit } = useForm();
     const [data, setData] = useState('');
-
+    const [loginUserEmail, setLoginUserEmail] = useState('');
+    const [token] = useToken(loginUserEmail)
     const navigate = useNavigate();
     const location = useLocation();
 
