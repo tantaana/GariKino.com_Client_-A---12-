@@ -1,6 +1,7 @@
 import React from 'react';
 
-const ProductsList = ({ product, setModalVal }) => {
+const ProductsList = ({ product, setModals }) => {
+
     return (
         <div className="card w-96 bg-red-300 shadow-xl">
             <figure><img src={product.photo} className="h-[400px] w-full" alt="Shoes" /></figure>
@@ -28,10 +29,10 @@ const ProductsList = ({ product, setModalVal }) => {
                             </div>
                         </div>
 
-                        <div>
-                            <label htmlFor="book-modal" className="btn btn-primary" onClick={() => setModalVal(product)}>Book Now!</label>
 
-                        </div>
+                        <label htmlFor="book-modal" className="btn btn-primary" onClick={() => setModals(product)}>Book Now!</label>
+
+
                     </div>
                 </div>
             </div>
