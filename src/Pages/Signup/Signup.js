@@ -20,7 +20,7 @@ const Signup = () => {
     const from = location.state?.from?.pathname || '/';
 
     if (token) {
-        navigate('/ ')
+        navigate(from, { replace: true })
     }
 
     const googleProvider = new GoogleAuthProvider();
@@ -34,9 +34,22 @@ const Signup = () => {
                 const email = user.email;
                 const userType = 'Buyer'
 
-                saveUser(name, email, userType)
+                const userInfo = {
+                    displayName: name,
+                    email: email,
+                    photoURL: userType
+                }
 
-                toast.success('Successfully Signed Up ✔️')
+                console.log(userInfo)
+                updateUser(userInfo)
+                    .then(() => {
+                        saveUser(name, email, userType)
+                        toast.success('Successfully Signed Up ✔️')
+                    })
+                    .catch(err => console.log(err.message))
+
+
+
             })
             .catch(err => {
                 console.log(err.message)
@@ -79,7 +92,7 @@ const Signup = () => {
 
                 const userInfo = {
                     displayName: name,
-                    tenantId: userType
+                    photoURL: userType
                 }
 
                 updateUser(userInfo)

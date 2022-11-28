@@ -2,10 +2,13 @@ import { useQuery } from '@tanstack/react-query';
 import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../contexts/AuthProvider';
 import Loading from '../../Shared/Loading/Loading';
 
 const AddProduct = () => {
+
+    const navigate = useNavigate();
 
     const { user } = useContext(AuthContext);
     console.log(user)
@@ -16,7 +19,7 @@ const AddProduct = () => {
     const imageHostKey = process.env.REACT_APP_imgbb_key;
 
 
-    const { data: categories, isLoading } = useQuery({
+    const { data: categories, isLoading, refetch } = useQuery({
         queryKey: ['category'],
         queryFn: async () => {
             const res = await fetch('http://localhost:5000/categoryName');
@@ -57,6 +60,8 @@ const AddProduct = () => {
 
 
                     }
+                    refetch();
+                    navigate('/dashboard/myproduct')
 
 
                     //save product information to the database

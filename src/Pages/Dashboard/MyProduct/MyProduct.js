@@ -22,6 +22,7 @@ const MyProduct = () => {
 
         }
 
+
     })
 
     if (isLoading) {
@@ -30,7 +31,7 @@ const MyProduct = () => {
 
     return (
         <div className='mt-10 m-4'>
-            <h2 className='text-3xl font-bold mb-8'>My Product</h2>
+            <h2 className='text-3xl font-bold mb-8'>My Products</h2>
 
             <div className='mb-8'>
                 <h2 className='text-lg'><span className='font-bold'>Your Name:</span> {user?.displayName}</h2>

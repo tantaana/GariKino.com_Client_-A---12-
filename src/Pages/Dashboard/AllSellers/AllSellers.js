@@ -57,7 +57,7 @@ const AllSellers = () => {
                                     <td>
                                         {seller.email}
                                     </td>
-                                    <td className='font-bold text-xl'>${seller._id}</td>
+                                    <td className='font-bold text-xl'>{seller._id}</td>
                                     <th>
                                         <button className="btn btn-error">Delete</button>
                                     </th>

@@ -37,8 +37,8 @@ const AllBuyers = () => {
                     <thead>
                         <tr>
                             <th></th>
-                            <th>Seller Name</th>
-                            <th>Seller Email</th>
+                            <th>Buyer Name</th>
+                            <th>Buyer Email</th>
                             <th>ID</th>
                             <th>Action</th>
                         </tr>
@@ -57,7 +57,7 @@ const AllBuyers = () => {
                                     <td>
                                         {buyer.email}
                                     </td>
-                                    <td className='font-bold text-xl'>${buyer._id}</td>
+                                    <td className='font-bold text-xl'>{buyer._id}</td>
                                     <th>
                                         <button className="btn btn-error">Delete</button>
                                     </th>
