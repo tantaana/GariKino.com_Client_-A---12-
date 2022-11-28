@@ -9,9 +9,9 @@ const BookModal = ({ modalData }) => {
     const { name } = modalData;
     console.log(user.displayName, user.email, name)
 
-    const handleBook = data => {
-        data.preventDefault();
-        console.log(data)
+    const handleBook = event => {
+        event.preventDefault();
+        console.log()
 
     }
 

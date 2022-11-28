@@ -20,7 +20,7 @@ const Signup = () => {
     const from = location.state?.from?.pathname || '/';
 
     if (token) {
-        navigate('/')
+        navigate('/ ')
     }
 
     const googleProvider = new GoogleAuthProvider();
@@ -32,8 +32,9 @@ const Signup = () => {
 
                 const name = user.displayName;
                 const email = user.email;
+                const userType = 'Buyer'
 
-                saveUser(name, email)
+                saveUser(name, email, userType)
 
                 toast.success('Successfully Signed Up ✔️')
             })
@@ -44,8 +45,8 @@ const Signup = () => {
                 }
             })
 
-        const saveUser = (name, email) => {
-            const user = { name, email };
+        const saveUser = (name, email, userType) => {
+            const user = { name, email, userType };
             fetch('http://localhost:5000/users', {
                 method: 'POST',
                 headers: {
@@ -83,7 +84,7 @@ const Signup = () => {
 
                 updateUser(userInfo)
                     .then(() => {
-                        saveUser(data.name, data.email)
+                        saveUser(name, email, userType)
                     })
                     .catch(err => console.log(err.message))
 
@@ -96,8 +97,8 @@ const Signup = () => {
                 }
             })
 
-        const saveUser = (name, email) => {
-            const user = { name, email };
+        const saveUser = (name, email, userType) => {
+            const user = { name, email, userType };
             fetch('http://localhost:5000/users', {
                 method: 'POST',
                 headers: {

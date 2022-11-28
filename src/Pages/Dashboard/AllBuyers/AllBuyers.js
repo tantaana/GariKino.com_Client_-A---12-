@@ -2,14 +2,14 @@ import { useQuery } from '@tanstack/react-query';
 import React, { useContext } from 'react';
 import { AuthContext } from '../../../contexts/AuthProvider';
 
-const AllSellers = () => {
+const AllBuyers = () => {
 
     const { user } = useContext(AuthContext);
 
-    const url = 'http://localhost:5000/userInfo?userType=Seller'
+    const url = 'http://localhost:5000/userInfo?userType=Buyer'
 
-    const { data: sellers = [] } = useQuery({
-        queryKey: ['Sellers'],
+    const { data: buyers = [] } = useQuery({
+        queryKey: ['Buyer'],
         queryFn: async () => {
             const res = await fetch(url, {
                 headers: {
@@ -46,18 +46,18 @@ const AllSellers = () => {
                     <tbody>
 
                         {
-                            sellers.map((seller, i) =>
+                            buyers.map((buyer, i) =>
                                 <tr>
                                     <td className='font-bold text-xl'>{i + 1}</td>
                                     <td>
                                         <div>
-                                            <h2 className="font-bold">{seller.name}</h2>
+                                            <h2 className="font-bold">{buyer.name}</h2>
                                         </div>
                                     </td>
                                     <td>
-                                        {seller.email}
+                                        {buyer.email}
                                     </td>
-                                    <td className='font-bold text-xl'>${seller._id}</td>
+                                    <td className='font-bold text-xl'>${buyer._id}</td>
                                     <th>
                                         <button className="btn btn-error">Delete</button>
                                     </th>
@@ -72,4 +72,4 @@ const AllSellers = () => {
     );
 };
 
-export default AllSellers;
+export default AllBuyers;
