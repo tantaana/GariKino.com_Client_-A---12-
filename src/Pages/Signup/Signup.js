@@ -20,7 +20,7 @@ const Signup = () => {
     const from = location.state?.from?.pathname || '/';
 
     if (token) {
-        navigate(from, { replace: true })
+        navigate('/')
     }
 
     const googleProvider = new GoogleAuthProvider();

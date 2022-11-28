@@ -2,6 +2,9 @@ import { useQuery } from '@tanstack/react-query';
 import React, { useContext, useState } from 'react';
 import { Link, Outlet } from 'react-router-dom';
 import { AuthContext } from '../contexts/AuthProvider';
+import useAdmin from '../hooks/useAdmin';
+import useBuyer from '../hooks/useBuyer';
+import useSeller from '../hooks/useSeller';
 import Dashboard from '../Pages/Dashboard/Dashboard';
 import Navbar from '../Pages/Shared/Navbar/Navbar';
 import DashboardNav from './DashboardNav';
@@ -9,19 +12,11 @@ import DashboardNav from './DashboardNav';
 const DashboardLayout = () => {
 
     const { user } = useContext(AuthContext);
+    const [isAdmin] = useAdmin(user?.photoURL);
+    const [isSeller] = useSeller(user?.photoURL);
+    const [isBuyer] = useBuyer(user?.photoURL);
 
-    const { data: users = [], refetch } = useQuery({
-        queryKey: ['users'],
-        queryFn: async () => {
-            const res = await fetch('http://localhost:5000/userGet');
-            const data = await res.json();
-            return data;
-        }
-    })
 
-    console.log(users)
-
-    let haha = ''
 
     return (
         <div>
@@ -39,16 +34,16 @@ const DashboardLayout = () => {
                 <div className="drawer-side">
                     <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
                     <ul className="menu p-4 w-80 bg-yellow-600 text-base-content">
-                        {user?.photoURL === "Seller" &&
+                        {isSeller &&
                             <>
                                 <li><Link to='/dashboard/addproduct' className='text-xl font-bold text-white'>Add A Product</Link></li>
                                 <li><Link to='/dashboard/myproduct' className='text-xl font-bold text-white'>My Products</Link></li>
                             </>}
-                        {user?.photoURL === 'Buyer' &&
+                        {isBuyer &&
                             <>
                                 <li><Link to='/dashboard/myorders' className='text-xl font-bold text-white'>My Orders</Link></li>
                             </>}
-                        {user?.photoURL === "Admin" &&
+                        {isAdmin &&
                             <>
                                 <li><Link to='/dashboard/allsellers' className='text-xl font-bold text-white'>All Sellers</Link></li>
                                 <li><Link to='/dashboard/allbuyers' className='text-xl font-bold text-white'>All Buyers</Link></li>
