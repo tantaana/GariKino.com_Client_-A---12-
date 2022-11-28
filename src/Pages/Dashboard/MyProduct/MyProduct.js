@@ -1,14 +1,15 @@
 import { useQuery } from '@tanstack/react-query';
 import React, { useContext } from 'react';
 import { AuthContext } from '../../../contexts/AuthProvider';
+import Loading from '../../Shared/Loading/Loading';
 
 const MyProduct = () => {
     const { user } = useContext(AuthContext);
 
     const url = `http://localhost:5000/userData?email=${user?.email}`
 
-    const { data: email = [] } = useQuery({
-        queryKey: ['email'],
+    const { data: email, isLoading } = useQuery({
+        queryKey: ['email', user?.email],
         queryFn: async () => {
             const res = await fetch(url);
             const data = await res.json();
@@ -18,6 +19,10 @@ const MyProduct = () => {
         }
 
     })
+
+    if (isLoading) {
+        return <Loading></Loading>
+    }
 
     return (
         <div className='mt-10 m-4'>
@@ -33,39 +38,34 @@ const MyProduct = () => {
 
                     <thead>
                         <tr>
-                            <th>
-
-                            </th>
+                            <th></th>
+                            <th>Product Image</th>
                             <th>Product Name</th>
                             <th>Category</th>
                             <th>Resale Price</th>
-                            <th></th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
 
                         {
-                            email.map(userEmail =>
+                            email.map((userEmail, i) =>
                                 <tr>
-                                    <th>
-                                        <label>
-                                            <input type="checkbox" className="checkbox" />
-                                        </label>
-                                    </th>
+                                    <td className='font-bold text-xl'>{i + 1}</td>
+                                    <td className='w-10 h-20'>
+                                        <img src={userEmail.photo} alt="" />
+                                    </td>
                                     <td>
-                                        <div className="flex items-center space-x-3">
-
-                                            <div>
-                                                <div className="font-bold">{userEmail.name}</div>
-                                            </div>
+                                        <div>
+                                            <h2 className="font-bold">{userEmail.name}</h2>
                                         </div>
                                     </td>
                                     <td className='text-xl'>
-                                        {userEmail.category}
+                                        <u>{userEmail.category}</u>
                                     </td>
-                                    <td>{userEmail.resalePrice}</td>
+                                    <td className='font-bold text-xl'>${userEmail.resalePrice}</td>
                                     <th>
-                                        <button className="btn btn-ghost btn-xs">details</button>
+                                        <button className="btn btn-error">Delete</button>
                                     </th>
                                 </tr>)
                         }

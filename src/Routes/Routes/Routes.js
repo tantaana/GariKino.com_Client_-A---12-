@@ -10,6 +10,7 @@ import Dashboard from "../../Pages/Dashboard/Dashboard";
 import AddProduct from "../../Pages/Dashboard/AddProduct/AddProduct";
 import DashboardLayout from "../../Layout/DashboardLayout";
 import MyProduct from "../../Pages/Dashboard/MyProduct/MyProduct";
+import PrivateRoute from "../PrivateRoute/PrivateRoute";
 
 const router = createBrowserRouter([
     {
@@ -34,7 +35,7 @@ const router = createBrowserRouter([
             },
             {
                 path: '/category/:id',
-                element: <Products></Products>,
+                element: <PrivateRoute><Products></Products></PrivateRoute>,
                 loader: ({ params }) => fetch(`http://localhost:5000/categories/${params.id}`)
             },
             {

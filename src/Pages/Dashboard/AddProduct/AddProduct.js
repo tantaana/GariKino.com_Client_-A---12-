@@ -3,6 +3,7 @@ import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { AuthContext } from '../../../contexts/AuthProvider';
+import Loading from '../../Shared/Loading/Loading';
 
 const AddProduct = () => {
 
@@ -15,7 +16,7 @@ const AddProduct = () => {
     const imageHostKey = process.env.REACT_APP_imgbb_key;
 
 
-    const { data: categories = [] } = useQuery({
+    const { data: categories, isLoading } = useQuery({
         queryKey: ['category'],
         queryFn: async () => {
             const res = await fetch('http://localhost:5000/categoryName');
@@ -69,6 +70,7 @@ const AddProduct = () => {
                     })
                         .then(res => res.json())
                         .then(data => {
+
                             if (data.acknowledged) {
                                 toast.success('Product Added Successfully')
                             }
@@ -76,6 +78,7 @@ const AddProduct = () => {
                 }
             })
     }
+
 
     return (
         <div className='mt-10 m-4'>
