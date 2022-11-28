@@ -18,6 +18,10 @@ const Login = () => {
 
     const from = location.state?.from?.pathname || '/';
 
+    if (token) {
+        navigate(from, { replace: true })
+    }
+
 
     const googleProvider = new GoogleAuthProvider();
 
@@ -25,8 +29,11 @@ const Login = () => {
         providerLogin(googleProvider)
             .then(result => {
                 const user = result.user;
-                console.log(user)
-                navigate(from, { replace: true })
+
+                const name = user.displayName;
+                const email = user.email;
+                setLoginUserEmail(email)
+
                 toast.success('Successfully logged in ✔️')
             })
             .catch(err => {
@@ -46,9 +53,8 @@ const Login = () => {
         signIn(email, password)
             .then(result => {
                 const user = result.user;
-                console.log(user)
-                navigate(from, { replace: true })
                 toast.success('Successfully Logged In✔️')
+                setLoginUserEmail(email)
             })
             .catch(err => {
                 if (err.message === "Firebase: Error (auth/wrong-password).") {
