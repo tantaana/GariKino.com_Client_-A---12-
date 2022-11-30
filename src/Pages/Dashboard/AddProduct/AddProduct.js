@@ -60,8 +60,8 @@ const AddProduct = () => {
 
 
                     }
-                    refetch();
-                    navigate('/dashboard/myproduct')
+
+
 
 
                     //save product information to the database
@@ -77,11 +77,15 @@ const AddProduct = () => {
                         .then(data => {
 
                             if (data.acknowledged) {
+
                                 toast.success('Product Added Successfully')
+                                navigate('/dashboard/myproduct')
                             }
                         })
+
                 }
             })
+        refetch();
     }
 
 

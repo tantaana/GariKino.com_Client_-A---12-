@@ -1,14 +1,22 @@
 import { useQuery } from '@tanstack/react-query';
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
+import toast from 'react-hot-toast';
 import { AuthContext } from '../../../contexts/AuthProvider';
+import DeleteSeller from '../DeleteSeller/DeleteSeller';
 
 const AllSellers = () => {
 
     const { user } = useContext(AuthContext);
 
+    const [deleteSeller, setDeleteSeller] = useState(null);
+
+    const closeModal = () => {
+        setDeleteSeller(null)
+    }
+
     const url = 'http://localhost:5000/userInfo?userType=Seller'
 
-    const { data: sellers = [] } = useQuery({
+    const { data: sellers = [], refetch } = useQuery({
         queryKey: ['Sellers'],
         queryFn: async () => {
             const res = await fetch(url, {
@@ -21,6 +29,33 @@ const AllSellers = () => {
             return data
         }
     })
+
+    const handleDeleteSeller = seller => {
+        fetch(`http://localhost:5000/users/${seller._id}`, {
+            method: 'DELETE',
+            headers: {
+                authorization: `bearer ${localStorage.getItem('accessToken')}`
+            }
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.deletedCount > 0) {
+                    refetch();
+                    toast.success('Seller Deleted Successfully')
+                }
+            })
+    }
+
+
+    const handleVerify = (email) => {
+        fetch(`http://localhost:5000/users/info?email=${email}`, {
+            method: 'PUT'
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data)
+            })
+    }
 
     return (
         <div className='mt-10 m-4'>
@@ -58,8 +93,10 @@ const AllSellers = () => {
                                         {seller.email}
                                     </td>
                                     <td className='font-bold text-xl'>{seller._id}</td>
-                                    <th>
-                                        <button className="btn btn-error">Delete</button>
+                                    <th className='flex gap-2'>
+                                        <button onClick={() => handleVerify(seller.email)} className="btn btn-success text-sm font-bold">Verify User</button>
+                                        <label
+                                            onClick={() => setDeleteSeller(seller)} htmlFor="delete-seller" className="btn btn-error text-sm font-bold">Delete User</label>
                                     </th>
                                 </tr>)
                         }
@@ -68,6 +105,12 @@ const AllSellers = () => {
 
                 </table>
             </div>
+
+            {deleteSeller && <DeleteSeller
+                closeModal={closeModal}
+                deleteSeller={deleteSeller}
+                successDelete={handleDeleteSeller}
+            ></DeleteSeller>}
         </div>
     );
 };

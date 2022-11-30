@@ -1,5 +1,5 @@
 import { GoogleAuthProvider } from 'firebase/auth';
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import toast, { Toaster } from 'react-hot-toast';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
@@ -18,9 +18,13 @@ const Login = () => {
 
     const from = location.state?.from?.pathname || '/';
 
-    if (token) {
-        navigate('/')
-    }
+
+
+    useEffect(() => {
+        if (token) {
+            navigate(from, { replace: true })
+        }
+    }, [navigate, token, from])
 
 
     const googleProvider = new GoogleAuthProvider();
@@ -99,8 +103,8 @@ const Login = () => {
                 </form>
                 <p className='mt-4 font-bold text-center'>New to <i>GariKino.com</i> ? Please <Link className='text-primary font-bold' to='/signup'>Sign Up</Link></p>
 
-                <div className="divider font-bold text-xl">OR</div>
-                <button onClick={handleGoogle} className='btn btn-primary btn-outline w-full font-bold'>CONTINUE WITH GOOGLE</button>
+                {/* <div className="divider font-bold text-xl">OR</div>
+                <button onClick={handleGoogle} className='btn btn-primary btn-outline w-full font-bold'>CONTINUE WITH GOOGLE</button> */}
             </div>
         </div>
     );
