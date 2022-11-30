@@ -5,7 +5,7 @@ const useAdmin = userType => {
     const [isAdminLoading, setIsAdminLoading] = useState(true)
     useEffect(() => {
         if (userType) {
-            fetch(`http://localhost:5000/users/admin/${userType}`)
+            fetch(`https://used-products-server-phi.vercel.app/users/admin/${userType}`)
                 .then(res => res.json())
                 .then(data => {
                     console.log(data)

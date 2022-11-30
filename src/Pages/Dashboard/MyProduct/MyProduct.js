@@ -6,7 +6,7 @@ import Loading from '../../Shared/Loading/Loading';
 const MyProduct = () => {
     const { user } = useContext(AuthContext);
 
-    const url = `http://localhost:5000/userData?email=${user?.email}`
+    const url = `https://used-products-server-phi.vercel.app/userData?email=${user?.email}`
 
     const { data: email, isLoading } = useQuery({
         queryKey: ['email', user?.email],

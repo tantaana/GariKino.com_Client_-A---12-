@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 const Categories = () => {
     // const [categories, setCategories] = useState([]);
     // useEffect(() => {
-    //     fetch('http://localhost:5000/categories')
+    //     fetch('https://used-products-server-phi.vercel.app/categories')
     //         .then(res => res.json())
     //         .then(data => setCategories(data))
     // }, [])
@@ -13,7 +13,7 @@ const Categories = () => {
 
     const { data: categories = [] } = useQuery({
         queryKey: 'categories',
-        queryFn: () => fetch('http://localhost:5000/categories')
+        queryFn: () => fetch('https://used-products-server-phi.vercel.app/categories')
             .then(res => res.json())
     })
 

@@ -15,7 +15,7 @@ const AllBuyers = () => {
     }
 
 
-    const url = 'http://localhost:5000/userInfo?userType=Buyer'
+    const url = 'https://used-products-server-phi.vercel.app/userInfo?userType=Buyer'
 
     const { data: buyers = [], refetch } = useQuery({
         queryKey: ['Buyer'],
@@ -33,7 +33,7 @@ const AllBuyers = () => {
 
 
     const handleDeleteBuyer = buyer => {
-        fetch(`http://localhost:5000/users/${buyer._id}`, {
+        fetch(`https://used-products-server-phi.vercel.app/users/${buyer._id}`, {
             method: 'DELETE',
             headers: {
                 authorization: `bearer ${localStorage.getItem('accessToken')}`

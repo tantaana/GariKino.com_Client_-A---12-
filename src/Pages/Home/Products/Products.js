@@ -7,7 +7,7 @@ import ProductsList from '../ProductsList/ProductsList';
 const Products = () => {
     const { categories } = useLoaderData();
 
-    const url = `http://localhost:5000/products?category=${categories}`
+    const url = `https://used-products-server-phi.vercel.app/products?category=${categories}`
 
     const { data: category = [] } = useQuery({
         queryKey: ['category'],

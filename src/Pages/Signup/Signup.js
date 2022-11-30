@@ -62,7 +62,7 @@ const Signup = () => {
 
         const saveUser = (name, email, userType) => {
             const user = { name, email, userType };
-            fetch('http://localhost:5000/users', {
+            fetch('https://used-products-server-phi.vercel.app/users', {
                 method: 'POST',
                 headers: {
                     'content-type': 'application/json'
@@ -114,7 +114,7 @@ const Signup = () => {
 
         const saveUser = (name, email, userType) => {
             const user = { name, email, userType };
-            fetch('http://localhost:5000/users', {
+            fetch('https://used-products-server-phi.vercel.app/users', {
                 method: 'POST',
                 headers: {
                     'content-type': 'application/json'
