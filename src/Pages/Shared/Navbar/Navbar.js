@@ -44,7 +44,7 @@ const Navbar = () => {
                                     <li><Link to='/dashboard' className='text-white text-xl font-bold'>Dashboard</Link></li>
                                     <li><Link onClick={handleLogOut} className='text-white text-xl font-bold'>Log Out</Link></li>
                                 </> :
-                                <li><Link to='/login' className='text-white text-xl font-bold'>Login</Link></li>
+                                <li><Link to='/login' className='text-white text-xl font-bold'>Log In</Link></li>
                         }
                         <li><Link to='/blogs' className='text-white text-xl font-bold'>Blogs</Link></li>
                     </ul>
